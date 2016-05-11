@@ -1,0 +1,26 @@
+<nav class="navbar navbar-light navbar-fixed-top bg-faded">
+  <span>
+    <button type="button" class="btn btn-primary btn-lg" ng-click="swapAnimals()">
+      Cute <span ng-class="{ bold: keyword == 'kittens' }">kittens</span> / <span ng-class="{ bold: keyword == 'puppies' }">puppies</span>
+    </button>
+  </span>
+  <span class="pull-xs-right">
+    <button type="button" class="btn btn-link" ng-click="back()">Back</button>
+    <label>{{ currentPage }} / {{ totalPages }}</label>
+    <button type="button" class="btn btn-link pull-right" ng-click="next()">Next</button>
+  </span>
+</nav>
+<div id="gallery" class="">
+  <section id="photos">
+    <div ng-repeat="gif in gifs">
+      <img class="gif" ng-src="{{ gif.images.fixed_height_still.url }}" ng-click="popupModal(gif.images.fixed_height.url)"/>
+    </div>
+  </section>
+  <div class="modal fade" id="gifModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <img alt="image" style="width: 100%;"/>
+      </div>
+    </div>
+  </div>
+</div>
