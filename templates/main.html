@@ -1,25 +1,56 @@
-<nav class="navbar navbar-light navbar-fixed-top bg-faded">
-  <span>
-    <button type="button" class="btn btn-primary btn-lg" ng-click="swapAnimals()">
-      Cute <span ng-class="{ bold: keyword == 'kittens' }">kittens</span> / <span ng-class="{ bold: keyword == 'puppies' }">puppies</span>
-    </button>
-  </span>
-  <span class="pull-xs-right">
-    <button type="button" class="btn btn-link" ng-click="back()">Back</button>
-    <label>{{ currentPage }} / {{ totalPages }}</label>
-    <button type="button" class="btn btn-link pull-right" ng-click="next()">Next</button>
-  </span>
-</nav>
-<div id="gallery" class="">
-  <section id="photos">
-    <div ng-repeat="gif in gifs">
-      <img class="gif" ng-src="{{ gif.images.fixed_height_still.url }}" ng-click="popupModal(gif.images.fixed_height.url)"/>
+<div ng-controller="mainController">
+  <!-- Navbar -->
+  <nav class="navbar navbar-light navbar-fixed-top bg-faded">
+    <div class="row">
+      <div class="col-lg-12">
+        <a class="navbar-brand" href="#/"><b>Search for gifs</b></a>
+        <form id="searchForm" class="form-inline pull-xs-right" ng-subimt="getSearch()">
+          <input class="form-control" ng-model="search" type="text" placeholder="Search" />
+          <button class="btn btn-success-outline" ng-click="getSearch()" type="submit">Search</button>
+        </form>
+      </div>
     </div>
-  </section>
-  <div class="modal fade" id="gifModal" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <img alt="image" style="width: 100%;"/>
+    <div id="bottomTopNav" class="row">
+      <div class="col-lg-12">
+        <span>
+          <button type="button" class="btn btn-primary-outline btn-md" ng-click="cuteAnimals()">
+            <span ng-class="{ bold: keyword == 'cute+animals' }">Cute animals</span>
+          </button>
+        </span>
+        <span>
+          <button type="button" class="btn btn-primary-outline btn-md" ng-click="swapAnimals()">
+            <span ng-class="{ bold: keyword == 'kittens' }">Kittens</span> / <span ng-class="{ bold: keyword == 'puppies' }">Puppies</span>
+          </button>
+        </span>
+        <span class="pull-xs-right">
+          <span> Gifs per page:  </span>
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ currentLimit }}
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" ng-repeat="limit in limits" ng-click="changeLimit(limit.value)" href="#/">{{ limit.value}}</a>
+            </div>
+          </div>
+          <button id="btnBack" ng-class="{ invisible: currentPage == 1 }" type="button" class="btn btn-link pull-right" ng-click="back()">Back</button>
+          <label class="pull-right">{{ currentPage }} / {{ totalPages }}</label>
+          <button id="btnNext" ng-class="{ invisible: totalPages == 1 }" type="button" class="btn btn-link pull-right" ng-click="next()">Next</button>
+        </span>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar end -->
+  <div id="gallery" class="">
+    <section id="photos">
+      <div ng-repeat="gif in gifs">
+        <img class="gif" ng-src="{{ gif.images.fixed_height_still.url }}" ng-click="popupModal(gif.images.fixed_height.url)"/>
+      </div>
+    </section>
+    <div class="modal fade" id="gifModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <img style="width: 100%;"/>
+        </div>
       </div>
     </div>
   </div>

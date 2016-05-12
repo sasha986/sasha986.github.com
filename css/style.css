@@ -1,10 +1,22 @@
 body {
-  padding-top: 100px;
+  padding-top: 60px;
   padding-bottom: 60px;
 }
 
 .gif:hover {
   opacity: 0.5;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+#bottomTopNav {
+    padding-top: 5px;
+}
+
+#gifModal {
+  background-color: transparent;
 }
 
 #photos {
